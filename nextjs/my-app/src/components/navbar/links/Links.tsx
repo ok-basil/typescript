@@ -1,34 +1,41 @@
-import Link from "next/link"
+import NavLink from "./navLink/NavLink"
 
 const Links = () => {
     const links = [
         {
-            id: 1,
             title: "Homepage",
             path: "/",
         },
         {
-            id: 2,
             title: "About",
             path: "/about",
         },
         {
-            id: 3,
             title: "Contact",
             path: "/contact",
         },
         {
-            id: 4,
             title: "Blog",
             path: "/blog",
         },
-    ]
+    ];
+
+    const session = true;
+    const isAdmin = true;
     return (
-        <div>
+        <div className="flex align-center gap-2.5">
             {links.map((link =>(
-                    <Link href={link.path} key={link.id}>{link.title}</Link>
+                <NavLink key={link.title} item={link} />
                 )
             ))}
+            {session ? (
+                <>
+                    {isAdmin && <NavLink item={{ title: "Admin", path: "/admin" }} />}
+                    <button className="p-2.5 cursor-pointer font-bold bg-#">Logout</button>
+                </>
+            ): (
+                <NavLink item={{ title: "Login", path: "/login" }} />
+            )}
         </div>
     )
 }
